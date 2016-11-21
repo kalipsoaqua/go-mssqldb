@@ -799,14 +799,14 @@ func decodeTimeInt(scale uint8, buf []byte) (sec int, ns int) {
 
 func decodeTime(scale uint8, buf []byte) time.Time {
 	sec, ns := decodeTimeInt(scale, buf)
-	return time.Date(1, 1, 1, 0, 0, sec, ns, time.UTC)
+	return time.Date(1, 1, 1, 0, 0, sec, ns, time.Local)
 }
 
 func decodeDateTime2(scale uint8, buf []byte) time.Time {
 	timesize := len(buf) - 3
 	sec, ns := decodeTimeInt(scale, buf[:timesize])
 	days := decodeDateInt(buf[timesize:])
-	return time.Date(1, 1, 1+days, 0, 0, sec, ns, time.UTC)
+	return time.Date(1, 1, 1+days, 0, 0, sec, ns, time.Local)
 }
 
 func decodeDateTimeOffset(scale uint8, buf []byte) time.Time {
